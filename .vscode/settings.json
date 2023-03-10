@@ -1,0 +1,37 @@
+{
+    "ss5_directory": "/Applications/SimplicityStudio.app/Contents/Eclipse", // verify this path
+    "ss5_gdb_server_filename": "JLinkGDBServer",
+    "ss5_project_name": "eoc_demo",
+    "editor.formatOnSave": true, // optional
+    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
+    "makefile.configurations": [
+        {
+            "name": "Parallel Build",
+            "makeArgs": [
+                "-j8"
+            ]
+        }
+    ],
+    "makefile.extensionLog": "log",
+    "makefile.configurationCachePath": ".makefile/configurationCache.log",
+    "makefile.extensionOutputFolder": "./.makefile",
+    "makefile.makefilePath": "./eoc_demo/eoc_demo.Makefile",
+    "makefile.makeDirectory": "./eoc_demo/",
+    "makefile.additionalCompilerNames": [
+        "arm-none-eabi-gcc"
+    ],
+    "makefile.phonyOnlyTargets": true,
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "${workspaceFolder}/eoc_demo/build/debug",
+            "binaryPath": "${workspaceFolder}/eoc_demo/build/debug/eoc_demo.out",
+            "binaryArgs": []
+        },
+        {
+            "cwd": "/Users/minnegm1/projects/eoc-demo/eoc_demo/build/debug",
+            "binaryPath": "/Users/minnegm1/projects/eoc-demo/eoc_demo/build/debug/eoc_demo.out",
+            "binaryArgs": []
+        }
+    ],
+    "cortex-debug.variableUseNaturalFormat": false,
+}

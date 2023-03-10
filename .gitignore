@@ -1,0 +1,17 @@
+# Build directories
+eoc_demo/build/
+.makefile/*
+
+# Ignore the vscode dir besides some helpful files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/settings.json
+
+# Executables
+*.exe
+*.out
+*.app
+
+# General
+.DS_Store

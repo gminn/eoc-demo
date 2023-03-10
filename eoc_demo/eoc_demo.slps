@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ASCII"?>
+<model:MDescriptors xmlns:model="http://www.silabs.com/ss/Studio.ecore">
+  <descriptors name="eoc_demo">
+    <properties key="projectCommon.sdkId" value="com.silabs.sdk.stack.super:4.2.2._630862494"/>
+    <properties key="universalConfig.generationDirectory" value=""/>
+    <properties key="universalConfig.toolchainCompatibility" value="iar gcc"/>
+    <properties key="projectCommon.boardIds" value="brd2400a:0.0.0.A00"/>
+    <properties key="projectCommon.kitId" value=""/>
+    <properties key="projectCommon.partId" value="mcu.arm.efm32.wg.efm32wg990f256"/>
+    <properties key="projectCommon.toolchainId" value="com.silabs.ss.framework.project.core.noToolChain:0.0.0"/>
+    <properties key="universalConfig.projectTypeIds" value="com.silabs.framework.project.makefile"/>
+    <properties key="projectCommon.importModeId" value="COPY"/>
+  </descriptors>
+</model:MDescriptors>

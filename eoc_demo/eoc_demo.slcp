@@ -1,0 +1,51 @@
+# Silicon Labs Project Configuration Tools: slcp, v0, Component selection file.
+project_name: eoc_demo
+label: eoc_demo
+description: |
+  This example project demonstrates how to use the CLI driver using a FreeRTOS Kernel.
+category: Example|Platform
+filter:
+- name: Device Type
+  value: [SoC]
+- name: MCU
+  value: [32-bit MCU]
+- name: Project Difficulty
+  value: [Beginner]
+package: platform
+quality: production
+readme:
+- {path: readme.md}
+source:
+- {path: app.c}
+- {path: main.c}
+- {path: cli.c}
+tag: ['hardware:component:led:2+']
+include:
+- path: ''
+  file_list:
+  - {path: app.h}
+  - {path: cli.h}
+sdk: {id: gecko_sdk, version: 4.2.2}
+toolchain_settings: []
+component:
+- {id: iostream_retarget_stdio}
+- {id: sl_system}
+- instance: [inst]
+  id: cli
+- {id: EFM32WG990F256}
+- {id: iostream_recommended_stream}
+- {id: freertos}
+- instance: [led0, led1]
+  id: simple_led
+- {id: device_init}
+- {id: iostream_stdlib_config}
+- {id: sleeptimer}
+- {id: brd2400a}
+define:
+- {name: DEBUG_EFM}
+configuration:
+- {name: SL_BOARD_ENABLE_VCOM, value: '1'}
+ui_hints:
+  highlight:
+  - {path: readme.md, focus: true}
+
