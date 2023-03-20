@@ -15,10 +15,10 @@ all: debug
 # Values set by the initial generation
 PROJECTNAME = eoc_demo
 ARM_GCC_DIR_WIN = 
-ARM_GCC_DIR_OSX = /Applications/Simplicity Studio.app/Contents/Eclipse/developer/toolchains/gnu_arm/10.3_2021.10
+ARM_GCC_DIR_OSX = /Applications/SimplicityStudio.app/Contents/Eclipse/developer/toolchains/gnu_arm/10.3_2021.10
 ARM_GCC_DIR_LINUX = 
 POST_BUILD_EXE_WIN = 
-POST_BUILD_EXE_OSX = /Applications/Simplicity Studio.app/Contents/Eclipse/developer/adapter_packs/commander/Commander.app/Contents/MacOS/commander
+POST_BUILD_EXE_OSX = /Applications/SimplicityStudio.app/Contents/Eclipse/developer/adapter_packs/commander/Commander.app/Contents/MacOS/commander
 POST_BUILD_EXE_LINUX = 
 
 # Pre-defined definitions in this file
@@ -53,7 +53,9 @@ else
 endif
 
 # Values that should be appended by the sub-makefiles
-C_SOURCE_FILES   = 
+C_SOURCE_FILES   = \
+ app/tools/src/counter.c \
+
 CXX_SOURCE_FILES = 
 ASM_SOURCE_FILES = 
 
@@ -62,10 +64,14 @@ LIBS =
 C_DEFS   = 
 ASM_DEFS = 
 
-INCLUDES = 
+INCLUDES = \
+ -Iapp/tools/inc \
 
 C_FLAGS           = 
-C_FLAGS_DEBUG     = 
+
+# Turn off optimization (-O0) and add maximal debug information (-g3)
+C_FLAGS_DEBUG     = -O0 -g3
+
 C_FLAGS_RELEASE   = 
 CXX_FLAGS         = 
 CXX_FLAGS_DEBUG   = 
@@ -73,7 +79,7 @@ CXX_FLAGS_RELEASE =
 ASM_FLAGS         = 
 ASM_FLAGS_DEBUG   = 
 ASM_FLAGS_RELEASE = 
-LD_FLAGS          = 
+LD_FLAGS          = -Wl,--print-memory-usage
 
 OBJS = 
 
