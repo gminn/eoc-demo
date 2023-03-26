@@ -55,6 +55,7 @@ endif
 # Values that should be appended by the sub-makefiles
 C_SOURCE_FILES   = \
  app/tools/src/counter.c \
+ app/general/src/gpio_mgr.c \
 
 CXX_SOURCE_FILES = 
 ASM_SOURCE_FILES = 
@@ -66,6 +67,7 @@ ASM_DEFS =
 
 INCLUDES = \
  -Iapp/tools/inc \
+ -Iapp/general/inc \
 
 C_FLAGS           = 
 
