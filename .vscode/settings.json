@@ -1,7 +1,6 @@
 {
-    "ss5_directory": "/Applications/SimplicityStudio.app/Contents/Eclipse", // verify this path
-    "ss5_gdb_server_filename": "JLinkGDBServer",
-    "ss5_project_name": "eoc_demo",
+    "simplicity_studio_dir": "/Applications/SimplicityStudio.app/Contents/Eclipse", // verify this path
+    "simplicty_studio_gdbserver": "JLinkGDBServer",
     "editor.formatOnSave": true, // optional
     "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
     "makefile.configurations": [
@@ -25,11 +24,6 @@
         {
             "cwd": "${workspaceFolder}/eoc_demo/build/debug",
             "binaryPath": "${workspaceFolder}/eoc_demo/build/debug/eoc_demo.out",
-            "binaryArgs": []
-        },
-        {
-            "cwd": "/Users/minnegm1/projects/eoc-demo/eoc_demo/build/debug",
-            "binaryPath": "/Users/minnegm1/projects/eoc-demo/eoc_demo/build/debug/eoc_demo.out",
             "binaryArgs": []
         }
     ],

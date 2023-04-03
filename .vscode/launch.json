@@ -1,23 +1,19 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
             "name": "Program/Debug",
             "type": "cortex-debug",
             "request": "launch",
-            // Executable path is a bit of a hack atm because launchTargetPath doesn't seem to be returning what it's supposed to.
             "executable": "${workspaceFolder}/eoc_demo/build/debug/eoc_demo.out",
             "svdFile": "${workspaceFolder}/eoc_demo/EFM32WG990F256.svd",
             "rtos": "FreeRTOS",
             "device": "EFM32WG990F256",
             "interface": "swd",
             "servertype": "jlink",
-            "serverpath": "${config:ss5_directory}/developer/adapter_packs/exx32/${config:ss5_gdb_server_filename}",
-            "armToolchainPath": "${config:ss5_directory}/developer/toolchains/gnu_arm/10.3_2021.10/bin/",
-            "runToMain": true,
+            "serverpath": "${config:simplicity_studio_dir}/developer/adapter_packs/exx32/${config:simplicty_studio_gdbserver}",
+            "armToolchainPath": "${config:simplicity_studio_dir}/developer/toolchains/gnu_arm/10.3_2021.10/bin/",
+            "runToEntryPoint": "main",
             "cwd": "${workspaceRoot}",
             "postLaunchCommands": [
                 "set substitute-path /c c:/"
@@ -27,58 +23,16 @@
             "name": "Attach/Debug",
             "type": "cortex-debug",
             "request": "attach",
-            // Executable path is a bit of a hack atm because launchTargetPath doesn't seem to be returning what it's supposed to.
             "executable": "${workspaceFolder}/eoc_demo/build/debug/eoc_demo.out",
             "svdFile": "${workspaceFolder}/eoc_demo/EFM32WG990F256.svd",
             "rtos": "FreeRTOS",
             "device": "EFM32GG11B820F2048",
             "interface": "swd",
             "servertype": "jlink",
-            "serverpath": "${config:ss5_directory}/developer/adapter_packs/exx32/${config:ss5_gdb_server_filename}",
-            "armToolchainPath": "${config:ss5_directory}/developer/toolchains/gnu_arm/10.3_2021.10/bin/",
-            "runToMain": true,
+            "serverpath": "${config:simplicity_studio_dir}/developer/adapter_packs/exx32/${config:simplicty_studio_gdbserver}",
+            "armToolchainPath": "${config:simplicity_studio_dir}/developer/toolchains/gnu_arm/10.3_2021.10/bin/",
+            "runToEntryPoint": "main",
             "cwd": "${workspaceRoot}",
-            "postLaunchCommands": [
-                "set substitute-path /c c:/"
-            ],
-        },
-        {
-            "name": "Unit Test On-Target Debug",
-            "type": "cortex-debug",
-            "request": "launch",
-            // Executable path is a bit of a hack atm because launchTargetPath doesn't seem to be returning what it's supposed to.
-            "executable": "${workspaceFolder}/eoc_demo/unit_tests/comms_board_tests",
-            "svdFile": "${workspaceFolder}/eoc_demo/EFM32WG990F256.svd",
-            "device": "EFM32WG990F256",
-            "interface": "swd",
-            "servertype": "jlink",
-            "serverpath": "${config:ss5_directory}/developer/adapter_packs/exx32/${config:ss5_gdb_server_filename}",
-            "armToolchainPath": "${config:ss5_directory}/developer/toolchains/gnu_arm/10.3_2021.10/bin/",
-            "runToMain": true,
-            "cwd": "${workspaceRoot}",
-            "postLaunchCommands": [
-                "set substitute-path /c c:/"
-            ],
-        },
-        {
-            "name": "Unit Test Off-Target Debug",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/eoc_demo/unit_tests/comms_board_tests",
-            "args": [],
-            "stopAtEntry": true,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "externalConsole": true,
-            "MIMode": "gdb",
-            "miDebuggerPath": "gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ]
         },
     ]
 }
