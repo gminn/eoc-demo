@@ -24,6 +24,10 @@
 
 static void counter_demo(bool call_printf);
 static void gpio_toggle_demo(bool use_lib);
+static void usage_fault_demo(int denom);
+
+#define ENABLE_DIV_0_TRP (0x10)
+#define END_OF_CODE_ADDRESS_SPACE_ADDR (uint32_t*)(0x1FFFFFFC)
 
 /**
  * @brief Initializes the application
@@ -37,6 +41,9 @@ void app_init(void) {
     // GPIO toggle demo
     gpio_toggle_demo(true);
     gpio_toggle_demo(false);
+
+    // Usage fault demo
+    usage_fault_demo(0);
 }
 
 /**
@@ -86,4 +93,16 @@ static void gpio_toggle_demo(bool use_lib) {
         // Toggle off
         GPIO->P[gpioPortD].DOUTCLR = 1UL << 7;
     }
+}
+
+static void usage_fault_demo(int denom) {
+    // Enable trapping on divide by zero in the Configuration and Control Register (CCR)
+    // inside the System Control Block (SCB)
+    SCB->CCR |= ENABLE_DIV_0_TRP;
+    
+    // Divide by zero
+    // Check out UFSR inside CFSR (upper 16 bits of 0xE000ED28) to see
+    // div by zero flag set
+    volatile int test = 5 / denom;
+    printf("Result of div by zero: %i\n", test);
 }
