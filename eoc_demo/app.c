@@ -25,6 +25,8 @@
 static void counter_demo(bool call_printf);
 static void gpio_toggle_demo(bool use_lib);
 static void usage_fault_demo(int denom);
+static void disassembly_opt_demo(void);
+static void reading_memory_demo(void);
 
 #define ENABLE_DIV_0_TRP (0x10)
 #define END_OF_CODE_ADDRESS_SPACE_ADDR (uint32_t*)(0x1FFFFFFC)
@@ -44,6 +46,12 @@ void app_init(void) {
 
     // Usage fault demo
     usage_fault_demo(0);
+
+    // Disassembly / optimization demo
+    disassembly_opt_demo();
+
+    // Reading memory demo
+    reading_memory_demo();
 }
 
 /**
@@ -105,4 +113,28 @@ static void usage_fault_demo(int denom) {
     // div by zero flag set
     volatile int test = 5 / denom;
     printf("Result of div by zero: %i\n", test);
+}
+
+static void disassembly_opt_demo(void)
+{
+    // Without volatile
+    for(int i = 0; i < 1000000000; i++)
+    {
+        // Busy loop
+    }
+
+    // With volatile
+    for(volatile int i = 0; i < 1000000000; i++)
+    {
+        // Busy loop
+    }
+}
+
+static void reading_memory_demo(void)
+{
+    char important_str[4] = "1234"; // not null terminated
+    printf("My important string: %s\n", important_str);
+
+    char fixed_important_str[5] = "1234"; // null terminated
+    printf("My important string: %s", fixed_important_str);
 }
