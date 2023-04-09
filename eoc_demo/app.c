@@ -26,7 +26,7 @@
 
 static void counter_demo(bool call_printf);
 static void gpio_toggle_demo(bool use_lib);
-static void usage_fault_demo(int denom);
+static void usage_fault_demo(void);
 static void disassembly_opt_demo(void);
 static void reading_memory_demo(void);
 
@@ -47,7 +47,7 @@ void app_init(void) {
     gpio_toggle_demo(false);
 
     // Usage fault demo
-    usage_fault_demo(0);
+    usage_fault_demo();
 
     // Disassembly / optimization demo
     disassembly_opt_demo();
@@ -105,7 +105,7 @@ static void gpio_toggle_demo(bool use_lib) {
     }
 }
 
-static void usage_fault_demo(int denom) {
+static void usage_fault_demo(void) {
     // Enable trapping on divide by zero in the Configuration and Control
     // Register (CCR) inside the System Control Block (SCB)
     SCB->CCR |= ENABLE_DIV_0_TRP;
@@ -113,7 +113,7 @@ static void usage_fault_demo(int denom) {
     // Divide by zero
     // Check out UFSR inside CFSR (upper 16 bits of 0xE000ED28) to see
     // div by zero flag set
-    volatile int test = 5 / denom;
+    volatile int test = 5 / 0;
     printf("Result of div by zero: %i\n", test);
 }
 
