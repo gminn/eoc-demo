@@ -18,8 +18,10 @@
 
 #include <stdio.h>
 
+#include "assert.h"
 #include "counter.h"
 #include "em_gpio.h"
+#include "em_msc.h"
 #include "gpio_mgr.h"
 
 static void counter_demo(bool call_printf);
@@ -29,7 +31,7 @@ static void disassembly_opt_demo(void);
 static void reading_memory_demo(void);
 
 #define ENABLE_DIV_0_TRP (0x10)
-#define END_OF_CODE_ADDRESS_SPACE_ADDR (uint32_t*)(0x1FFFFFFC)
+#define FLASH_INFORMATION_BLK_START_ADDR (uint32_t *)(0x0FE00000)
 
 /**
  * @brief Initializes the application
@@ -73,8 +75,8 @@ static void counter_demo(bool call_printf) {
 /**
  * @brief Demonstrate using a gpio to time a call to printf
  *
- * @note A logic analyzer or oscilloscope should be used to capture the time between
- *       the gpio toggles
+ * @note A logic analyzer or oscilloscope should be used to capture the time
+ * between the gpio toggles
  *
  * @param use_lib whether to use the gpio manager library
  */
@@ -104,10 +106,10 @@ static void gpio_toggle_demo(bool use_lib) {
 }
 
 static void usage_fault_demo(int denom) {
-    // Enable trapping on divide by zero in the Configuration and Control Register (CCR)
-    // inside the System Control Block (SCB)
+    // Enable trapping on divide by zero in the Configuration and Control
+    // Register (CCR) inside the System Control Block (SCB)
     SCB->CCR |= ENABLE_DIV_0_TRP;
-    
+
     // Divide by zero
     // Check out UFSR inside CFSR (upper 16 bits of 0xE000ED28) to see
     // div by zero flag set
@@ -115,26 +117,42 @@ static void usage_fault_demo(int denom) {
     printf("Result of div by zero: %i\n", test);
 }
 
-static void disassembly_opt_demo(void)
-{
-    // Without volatile
-    for(int i = 0; i < 1000000000; i++)
-    {
+/**
+ * @brief Demonstrate using disassembly to understand compiler optimizations
+ *
+ * NOTE: delays should NOT be done this way. This is a spin delay, versus more
+ * optimal delays that put the thread to sleep, thus giving the CPU to other
+ * tasks.
+ */
+static void disassembly_opt_demo(void) {
+    // Without volatile, this loop will get compiled out
+    // Ensure optimizations are on to see this behavior (i.e., remove -O0
+    // compiler flag that was set for debugging)
+    for (int i = 0; i < 1000000000; i++) {
         // Busy loop
     }
 
-    // With volatile
-    for(volatile int i = 0; i < 1000000000; i++)
-    {
+    // With volatile, this loop does not get compiled out
+    for (volatile int i = 0; i < 1000000000; i++) {
         // Busy loop
     }
 }
 
-static void reading_memory_demo(void)
-{
-    char important_str[4] = "1234"; // not null terminated
-    printf("My important string: %s\n", important_str);
+/**
+ * @brief Demonstrate how to use the memory view to understand contents of flash
+ *
+ */
+static void reading_memory_demo(void) {
+    // The Embedded Online Conference 2023 is #1 (the best)!
+    uint32_t eoc_bytes = 0x1E0C2023;
 
-    char fixed_important_str[5] = "1234"; // null terminated
-    printf("My important string: %s", fixed_important_str);
+    // Pull up the MEMORY window, at FLASH_INFORMATION_BLK_START_ADDR
+    // See values go from 0xFF --> new values
+    MSC_Status_TypeDef status =
+        MSC_WriteWord(FLASH_INFORMATION_BLK_START_ADDR, (void *)&eoc_bytes, 4);
+    assert(status == mscReturnOk);
+
+    // See values go back to 0xFF when the page is erased
+    status = MSC_ErasePage(FLASH_INFORMATION_BLK_START_ADDR);
+    assert(status == mscReturnOk);
 }
