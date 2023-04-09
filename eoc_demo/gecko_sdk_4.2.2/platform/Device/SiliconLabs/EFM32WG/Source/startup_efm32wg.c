@@ -270,8 +270,13 @@ __NO_RETURN void Reset_Handler(void)
  *----------------------------------------------------------------------------*/
 void Default_Handler(void)
 {
-  while (true) {
+  __disable_irq();
+  if (CoreDebug->DHCSR & CoreDebug_DHCSR_C_DEBUGEN_Msk)
+  {
+    __BKPT(1);
   }
+
+  for (;;) {}
 }
 
 #if defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
