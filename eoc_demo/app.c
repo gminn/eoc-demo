@@ -22,10 +22,9 @@
 #include "counter.h"
 #include "em_gpio.h"
 #include "em_msc.h"
-#include "gpio_mgr.h"
 
 static void counter_demo(bool call_printf);
-static void gpio_toggle_demo(bool use_lib);
+static void gpio_toggle_demo(bool call_printf);
 static void usage_fault_demo(void);
 static void disassembly_opt_demo(void);
 static void reading_memory_demo(void);
@@ -43,8 +42,8 @@ void app_init(void) {
     counter_demo(false);  // don't call printf
 
     // GPIO toggle demo
-    gpio_toggle_demo(true);
-    gpio_toggle_demo(false);
+    gpio_toggle_demo(true);   // call printf
+    gpio_toggle_demo(false);  // don't call printf
 
     // Usage fault demo
     usage_fault_demo();
@@ -78,31 +77,20 @@ static void counter_demo(bool call_printf) {
  * @note A logic analyzer or oscilloscope should be used to capture the time
  * between the gpio toggles
  *
- * @param use_lib whether to use the gpio manager library
+ * @param call_printf whether to call printf (true) or not (false)
  */
-static void gpio_toggle_demo(bool use_lib) {
-    if (use_lib) {
-        // Configure GPIO
-        configure_gpio(PORT_D, 7, OUTPUT);
+static void gpio_toggle_demo(bool call_printf) {
+    GPIO_PinModeSet(gpioPortD, 7, gpioModePushPull, 0);  // Configure GPIO
 
-        // Toggle on
-        set_gpio(PORT_D, 7, 1);
+    // Toggle on
+    GPIO_PinOutSet(gpioPortD, 7);
 
+    if (call_printf) {
         printf("Testing printf time!\n");
-
-        // Toggle off
-        set_gpio(PORT_D, 7, 0);
-    } else {
-        GPIO_PinModeSet(gpioPortD, 7, gpioModePushPull, 0);  // Configure GPIO
-
-        // Toggle on
-        GPIO->P[gpioPortD].DOUTSET = 1UL << 7;
-
-        printf("Testing printf time!\n");
-
-        // Toggle off
-        GPIO->P[gpioPortD].DOUTCLR = 1UL << 7;
     }
+
+    // Toggle off
+    GPIO_PinOutClear(gpioPortD, 7);
 }
 
 static void usage_fault_demo(void) {

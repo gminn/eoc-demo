@@ -54,11 +54,13 @@ endif
 
 # Values that should be appended by the sub-makefiles
 C_SOURCE_FILES   = \
+ app/startup/SEGGER_HardFaultHandler.c \
  app/tools/src/counter.c \
- app/general/src/gpio_mgr.c \
 
-CXX_SOURCE_FILES = 
-ASM_SOURCE_FILES = 
+CXX_SOURCE_FILES =
+
+ASM_SOURCE_FILES = \
+app/startup/HardFaultHandler.S \
 
 LIBS = 
 
@@ -67,7 +69,6 @@ ASM_DEFS =
 
 INCLUDES = \
  -Iapp/tools/inc \
- -Iapp/general/inc \
 
 C_FLAGS           = 
 

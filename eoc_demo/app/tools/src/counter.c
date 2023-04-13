@@ -24,15 +24,19 @@
 
 // Global variables
 static bool g_disable_interrupts = false;
+static uint32_t irq_state;
 
 void counter_init(void) {
     // Ensure cycle counter feature is enabled
-    bool cycle_count_not_en = (*(DWT_CTRL_ADDR)&DWT_NOCYCCNT_BITMASK) >> DWT_NOCYCCNT_BIT_OFFSET;
-    assert(!cycle_count_not_en);  // Failure means the cycle counter is not enabled on this MCU
+    bool cycle_count_not_en =
+        (*(DWT_CTRL_ADDR)&DWT_NOCYCCNT_BITMASK) >> DWT_NOCYCCNT_BIT_OFFSET;
+    assert(!cycle_count_not_en);  // Failure means the cycle counter is not
+                                  // enabled on this MCU
 }
 
 void start_counter(bool disable_interrupts) {
     if (disable_interrupts) {
+        irq_state = __get_PRIMASK();
         __disable_irq();
         g_disable_interrupts = true;
     }
@@ -46,7 +50,7 @@ float get_elapsed_time(void) {
     float elapsed_counts = *(uint32_t *)(DWT_CYCCNT_ADDR);
 
     if (g_disable_interrupts) {
-        __enable_irq();
+        __set_PRIMASK(irq_state);
         g_disable_interrupts = false;
     }
 

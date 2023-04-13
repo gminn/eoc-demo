@@ -1,3 +1,4 @@
+// clang-format off
 /***************************************************************************//**
  * @file
  * @brief CMSIS Compatible EFM32WG startup file in C.
@@ -70,59 +71,58 @@ void Default_Handler(void);
  * Exception / Interrupt Handler
  *----------------------------------------------------------------------------*/
 /* Cortex-M Processor Exceptions */
-void NMI_Handler(void)               __attribute__ ((weak, alias("Default_Handler")));
-void HardFault_Handler(void)         __attribute__ ((weak, alias("Default_Handler")));
-void MemManage_Handler(void)         __attribute__ ((weak, alias("Default_Handler")));
-void BusFault_Handler(void)          __attribute__ ((weak, alias("Default_Handler")));
-void UsageFault_Handler(void)        __attribute__ ((weak, alias("Default_Handler")));
-void DebugMon_Handler(void)          __attribute__ ((weak, alias("Default_Handler")));
-void SVC_Handler(void)               __attribute__ ((weak, alias("Default_Handler")));
-void PendSV_Handler(void)            __attribute__ ((weak, alias("Default_Handler")));
-void SysTick_Handler(void)           __attribute__ ((weak, alias("Default_Handler")));
+void NMI_Handler(void);
+void HardFault_Handler(void);
+void MemManage_Handler(void);
+void BusFault_Handler(void);
+void UsageFault_Handler(void);
+void DebugMon_Handler(void);
+void SVC_Handler(void);
+void PendSV_Handler(void);
+void SysTick_Handler(void);
 void sl_app_properties(void);        /* Prototype to please MISRA checkers. */
-void sl_app_properties(void)         __attribute__ ((weak, alias("Default_Handler")));
 
 /* Part Specific Interrupts */
-void DMA_IRQHandler(void)            __attribute__ ((weak, alias("Default_Handler")));
-void GPIO_EVEN_IRQHandler(void)      __attribute__ ((weak, alias("Default_Handler")));
-void TIMER0_IRQHandler(void)         __attribute__ ((weak, alias("Default_Handler")));
-void USART0_RX_IRQHandler(void)      __attribute__ ((weak, alias("Default_Handler")));
-void USART0_TX_IRQHandler(void)      __attribute__ ((weak, alias("Default_Handler")));
-void USB_IRQHandler(void)            __attribute__ ((weak, alias("Default_Handler")));
-void ACMP0_IRQHandler(void)          __attribute__ ((weak, alias("Default_Handler")));
-void ADC0_IRQHandler(void)           __attribute__ ((weak, alias("Default_Handler")));
-void DAC0_IRQHandler(void)           __attribute__ ((weak, alias("Default_Handler")));
-void I2C0_IRQHandler(void)           __attribute__ ((weak, alias("Default_Handler")));
-void I2C1_IRQHandler(void)           __attribute__ ((weak, alias("Default_Handler")));
-void GPIO_ODD_IRQHandler(void)       __attribute__ ((weak, alias("Default_Handler")));
-void TIMER1_IRQHandler(void)         __attribute__ ((weak, alias("Default_Handler")));
-void TIMER2_IRQHandler(void)         __attribute__ ((weak, alias("Default_Handler")));
-void TIMER3_IRQHandler(void)         __attribute__ ((weak, alias("Default_Handler")));
-void USART1_RX_IRQHandler(void)      __attribute__ ((weak, alias("Default_Handler")));
-void USART1_TX_IRQHandler(void)      __attribute__ ((weak, alias("Default_Handler")));
-void LESENSE_IRQHandler(void)        __attribute__ ((weak, alias("Default_Handler")));
-void USART2_RX_IRQHandler(void)      __attribute__ ((weak, alias("Default_Handler")));
-void USART2_TX_IRQHandler(void)      __attribute__ ((weak, alias("Default_Handler")));
-void UART0_RX_IRQHandler(void)       __attribute__ ((weak, alias("Default_Handler")));
-void UART0_TX_IRQHandler(void)       __attribute__ ((weak, alias("Default_Handler")));
-void UART1_RX_IRQHandler(void)       __attribute__ ((weak, alias("Default_Handler")));
-void UART1_TX_IRQHandler(void)       __attribute__ ((weak, alias("Default_Handler")));
-void LEUART0_IRQHandler(void)        __attribute__ ((weak, alias("Default_Handler")));
-void LEUART1_IRQHandler(void)        __attribute__ ((weak, alias("Default_Handler")));
-void LETIMER0_IRQHandler(void)       __attribute__ ((weak, alias("Default_Handler")));
-void PCNT0_IRQHandler(void)          __attribute__ ((weak, alias("Default_Handler")));
-void PCNT1_IRQHandler(void)          __attribute__ ((weak, alias("Default_Handler")));
-void PCNT2_IRQHandler(void)          __attribute__ ((weak, alias("Default_Handler")));
-void RTC_IRQHandler(void)            __attribute__ ((weak, alias("Default_Handler")));
-void BURTC_IRQHandler(void)          __attribute__ ((weak, alias("Default_Handler")));
-void CMU_IRQHandler(void)            __attribute__ ((weak, alias("Default_Handler")));
-void VCMP_IRQHandler(void)           __attribute__ ((weak, alias("Default_Handler")));
-void LCD_IRQHandler(void)            __attribute__ ((weak, alias("Default_Handler")));
-void MSC_IRQHandler(void)            __attribute__ ((weak, alias("Default_Handler")));
-void AES_IRQHandler(void)            __attribute__ ((weak, alias("Default_Handler")));
-void EBI_IRQHandler(void)            __attribute__ ((weak, alias("Default_Handler")));
-void EMU_IRQHandler(void)            __attribute__ ((weak, alias("Default_Handler")));
-void FPUEH_IRQHandler(void)          __attribute__ ((weak, alias("Default_Handler")));
+void DMA_IRQHandler(void);
+void GPIO_EVEN_IRQHandler(void);
+void TIMER0_IRQHandler(void);
+void USART0_RX_IRQHandler(void);
+void USART0_TX_IRQHandler(void);
+void USB_IRQHandler(void);
+void ACMP0_IRQHandler(void);
+void ADC0_IRQHandler(void);
+void DAC0_IRQHandler(void);
+void I2C0_IRQHandler(void);
+void I2C1_IRQHandler(void);
+void GPIO_ODD_IRQHandler(void);
+void TIMER1_IRQHandler(void);
+void TIMER2_IRQHandler(void);
+void TIMER3_IRQHandler(void);
+void USART1_RX_IRQHandler(void);
+void USART1_TX_IRQHandler(void);
+void LESENSE_IRQHandler(void);
+void USART2_RX_IRQHandler(void);
+void USART2_TX_IRQHandler(void);
+void UART0_RX_IRQHandler(void);
+void UART0_TX_IRQHandler(void);
+void UART1_RX_IRQHandler(void);
+void UART1_TX_IRQHandler(void);
+void LEUART0_IRQHandler(void);
+void LEUART1_IRQHandler(void);
+void LETIMER0_IRQHandler(void);
+void PCNT0_IRQHandler(void);
+void PCNT1_IRQHandler(void);
+void PCNT2_IRQHandler(void);
+void RTC_IRQHandler(void);
+void BURTC_IRQHandler(void);
+void CMU_IRQHandler(void);
+void VCMP_IRQHandler(void);
+void LCD_IRQHandler(void);
+void MSC_IRQHandler(void);
+void AES_IRQHandler(void);
+void EBI_IRQHandler(void);
+void EMU_IRQHandler(void);
+void FPUEH_IRQHandler(void);
 
 /*----------------------------------------------------------------------------
  * Exception / Interrupt Vector table
@@ -265,12 +265,217 @@ __NO_RETURN void Reset_Handler(void)
   #pragma clang diagnostic ignored "-Wmissing-noreturn"
 #endif
 
+__WEAK void NMI_Handler(void)
+{
+    Default_Handler();
+}
+__WEAK void HardFault_Handler(void)
+{
+    Default_Handler();
+}
+__WEAK void MemManage_Handler(void)
+{
+    Default_Handler();
+}
+__WEAK void BusFault_Handler(void)
+{
+    Default_Handler();
+}
+__WEAK void UsageFault_Handler(void)
+{
+    Default_Handler();
+}
+__WEAK void DebugMon_Handler(void)
+{
+    Default_Handler();
+}
+__WEAK void SVC_Handler(void)
+{
+    Default_Handler();
+}
+__WEAK void PendSV_Handler(void)
+{
+    Default_Handler();
+}
+__WEAK void SysTick_Handler(void)
+{
+    Default_Handler();
+}
+__WEAK void sl_app_properties(void)
+{
+    Default_Handler();
+}
+
+/* Part Specific Interrupts */
+__WEAK void DMA_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void GPIO_EVEN_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void TIMER0_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void USART0_RX_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void USART0_TX_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void USB_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void ACMP0_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void ADC0_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void DAC0_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void I2C0_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void I2C1_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void GPIO_ODD_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void TIMER1_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void TIMER2_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void TIMER3_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void USART1_RX_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void USART1_TX_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void LESENSE_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void USART2_RX_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void USART2_TX_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void UART0_RX_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void UART0_TX_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void UART1_RX_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void UART1_TX_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void LEUART0_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void LEUART1_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void LETIMER0_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void PCNT0_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void PCNT1_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void PCNT2_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void RTC_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void BURTC_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void CMU_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void VCMP_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void LCD_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void MSC_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void AES_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void EBI_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void EMU_IRQHandler(void)
+{
+    Default_Handler();
+}
+__WEAK void FPUEH_IRQHandler(void)
+{
+    Default_Handler();
+}
+
 /*----------------------------------------------------------------------------
  * Default Handler for Exceptions / Interrupts
  *----------------------------------------------------------------------------*/
 void Default_Handler(void)
 {
   __disable_irq();
+
+  // Break if debugger attached to help with debugging
   if (CoreDebug->DHCSR & CoreDebug_DHCSR_C_DEBUGEN_Msk)
   {
     __BKPT(1);
