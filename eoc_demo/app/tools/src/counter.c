@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2023
  *
  */
-
+// clang-format off
 #include "counter.h"
 
 #include <stdio.h>
@@ -29,7 +29,7 @@ static uint32_t irq_state;
 void counter_init(void) {
     // Ensure cycle counter feature is enabled
     bool cycle_count_not_en =
-        (*(DWT_CTRL_ADDR)&DWT_NOCYCCNT_BITMASK) >> DWT_NOCYCCNT_BIT_OFFSET;
+        (*(DWT_CTRL_ADDR) & DWT_NOCYCCNT_BITMASK) >> DWT_NOCYCCNT_BIT_OFFSET;
     assert(!cycle_count_not_en);  // Failure means the cycle counter is not
                                   // enabled on this MCU
 }
