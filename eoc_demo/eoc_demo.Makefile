@@ -55,7 +55,6 @@ endif
 # Values that should be appended by the sub-makefiles
 C_SOURCE_FILES   = \
  app/startup/SEGGER_HardFaultHandler.c \
- app/tools/src/counter.c \
 
 CXX_SOURCE_FILES =
 
@@ -67,8 +66,7 @@ LIBS =
 C_DEFS   = 
 ASM_DEFS = 
 
-INCLUDES = \
- -Iapp/tools/inc \
+INCLUDES = 
 
 C_FLAGS           = 
 

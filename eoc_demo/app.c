@@ -19,7 +19,7 @@
 #include <stdio.h>
 
 #include "assert.h"
-#include "counter.h"
+#include "em_cmu.h"
 #include "em_gpio.h"
 #include "em_msc.h"
 
@@ -29,6 +29,11 @@ static void usage_fault_demo(void);
 static void disassembly_opt_demo(void);
 static void reading_memory_demo(void);
 
+// Constants
+#define DWT_CTRL_ADDR (uint32_t *)0xE0001000
+#define DWT_CYCCNT_ADDR (uint32_t *)0xE0001004
+#define DWT_NOCYCCNT_BIT_OFFSET 25U
+#define DWT_NOCYCCNT_BITMASK (1 << DWT_NOCYCCNT_BIT_OFFSET)
 #define ENABLE_DIV_0_TRP (0x10)
 #define FLASH_INFORMATION_BLK_START_ADDR (uint32_t *)(0x0FE00000)
 
@@ -61,14 +66,29 @@ void app_init(void) {
  * @param call_printf whether to call printf (true) or not (false)
  */
 static void counter_demo(bool call_printf) {
-    counter_init();
-    start_counter(true);
+    bool cycle_count_not_en =
+        (*(DWT_CTRL_ADDR) & DWT_NOCYCCNT_BITMASK) >> DWT_NOCYCCNT_BIT_OFFSET;
+    assert(!cycle_count_not_en);  // Failure means the cycle counter is not
+                                  // enabled on this MCU
+    const uint32_t irq_state = __get_PRIMASK();
+    __disable_irq();
+
+    uint32_t *cycle_counter_reg = DWT_CYCCNT_ADDR;
+    *cycle_counter_reg = 0;
 
     if (call_printf) {
         printf("Testing printf time!\n");
     }
 
-    float elapsed_time_us = get_elapsed_time();
+    float elapsed_counts = *cycle_counter_reg;
+
+    __set_PRIMASK(irq_state);
+
+    float sys_clk_freq = CMU_ClockFreqGet(cmuClock_CORE);
+    float seconds = elapsed_counts / sys_clk_freq;
+    float ms = seconds * 1000;
+    float us = ms * 1000;
+    printf("Execution time of printf: %f s, %f ms, %f us\n", seconds, ms, us);
 }
 
 /**
@@ -81,6 +101,8 @@ static void counter_demo(bool call_printf) {
  */
 static void gpio_toggle_demo(bool call_printf) {
     GPIO_PinModeSet(gpioPortD, 7, gpioModePushPull, 0);  // Configure GPIO
+    const uint32_t irq_state = __get_PRIMASK();
+    __disable_irq();
 
     // Toggle on
     GPIO_PinOutSet(gpioPortD, 7);
@@ -91,6 +113,7 @@ static void gpio_toggle_demo(bool call_printf) {
 
     // Toggle off
     GPIO_PinOutClear(gpioPortD, 7);
+    __set_PRIMASK(irq_state);
 }
 
 static void usage_fault_demo(void) {
